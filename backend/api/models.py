@@ -25,6 +25,13 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Purchase(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    date = models.DateTimeField(auto_now_add=True)
+
+
 
 
 class Sale(models.Model):
@@ -39,7 +46,7 @@ class Expense(models.Model):
     description = models.TextField()
     expense_amount = models.DecimalField()
     date = models.DateTimeField(auto_now_add=True)
-    
+
 
 
 
