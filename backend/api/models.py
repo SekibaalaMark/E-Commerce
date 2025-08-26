@@ -44,7 +44,7 @@ class Sale(models.Model):
 class Expense(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
-    expense_amount = models.DecimalField()
+    expense_amount = models.DecimalField(decimal_places=2,max_digits=10)
     date = models.DateTimeField(auto_now_add=True)
 
 
