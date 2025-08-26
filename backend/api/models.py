@@ -16,5 +16,15 @@ class CustomUser(AbstractUser):
         return self.username
     
 
+class Product(models.Model):
+    name = models.CharField(max_length=40)
+    brand = models.CharField(max_length=30)
+    stock = models.PositiveIntegerField()
+    selling_price = models.PositiveIntegerField()
+    buying_price = models.PositiveIntegerField()
+
+    def __str__(self):
+        return self.name
+
 
 
