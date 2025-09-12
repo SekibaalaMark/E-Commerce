@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
-from .models import CustomUser
+from .models import *
+from django.contrib.auth import authenticate
+
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -45,3 +47,16 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return instance
         
         
+class loginSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True,required=True)
+    username = serializers.CharField(required=True)
+    def validate(self,data):
+        password = data.get("password")
+        username = data.get("username")
+        user = authenticate(password=password,username=username)
+        if not user:
+            raise serializers.ValidationError("Invalid password or username")
+        if not user.is_active:
+            raise serializers.ValidationError("User not activated")
+        data["user"]=user
+        return data
